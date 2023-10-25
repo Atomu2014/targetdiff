@@ -12,6 +12,11 @@ NODE_ALL=$3
 NODE_THIS=$4
 START_IDX=$5
 
+# CUDA_VISIBLE_DEVICES=1 bash scripts/batch_sample_diffusion.sh configs/sampling.yml outputs 4 0 0
+# CUDA_VISIBLE_DEVICES=2 bash scripts/batch_sample_diffusion.sh configs/sampling.yml outputs 4 1 0
+# CUDA_VISIBLE_DEVICES=3 bash scripts/batch_sample_diffusion.sh configs/sampling.yml outputs 4 2 0
+# CUDA_VISIBLE_DEVICES=4 bash scripts/batch_sample_diffusion.sh configs/sampling.yml outputs 4 3 0
+
 for ((i=$START_IDX;i<$TOTAL_TASKS;i++)); do
     NODE_TARGET=$(($i % $NODE_ALL))
     if [ $NODE_TARGET == $NODE_THIS ]; then

@@ -2,7 +2,7 @@ SHELL=/bin/bash
 PRIVATE_REGISTRY:=docker.jjgong.cloud
 BASE_IMAGE:=${PRIVATE_REGISTRY}/jerrikeph/base-cuda1162-dev-ubuntu2004-py39-torch-rdkit2023.03.2-openbabel
 
-PROJECT_NAME:=bfn4sbdd
+PROJECT_NAME:=bfn4sbdd2
 TEAM_NAME:=bfn
 PUBLIC_IMAG:=${PRIVATE_REGISTRY}/${TEAM_NAME}/${PROJECT_NAME}
 
@@ -47,8 +47,7 @@ build_private: _setup_sshkey _setup_gitconfig
 
 edit_public:
 	$(eval EDIT_CONTRAINER_NAME=${CONTRAINER_NAME}_edit_public)
-	docker run -it --gpus all -v ${PROJ_DIR}:${HOME}/project \
-		--name ${EDIT_CONTRAINER_NAME} ${PUBLIC_IMAG} /bin/bash
+	docker run -it --gpus all --name ${EDIT_CONTRAINER_NAME} ${PUBLIC_IMAG} /bin/bash
 	docker commit ${EDIT_CONTRAINER_NAME} ${PUBLIC_IMAG}
 	docker push ${PUBLIC_IMAG}
 	docker container rm ${EDIT_CONTRAINER_NAME}

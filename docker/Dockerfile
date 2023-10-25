@@ -6,8 +6,11 @@ ARG PYTHON_VERSION=3.9
 COPY ./asset /tmp/build
 RUN apt update &&\
     xargs apt install -y < /tmp/build/apt_packages.txt
-#RUN conda install rdkit openbabel tensorboard pyyaml easydict python-lmdb -c conda-forge
-#RUN conda install pytorch-cluster -c pyg
+RUN conda install -y python-lmdb -c conda-forge
+RUN pip install torch_geometric
+RUN pip install --no-index torch_scatter==2.1.1+pt113cu116 torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-1.13.1+cu116.html
+# RUN conda install -y pyg=2.1.0 -c pyg
+# RUN conda install -y pytorch-cluster=1.6.0 -c pyg
 ## install heavy packages here, such as pytorch, graph-tool, rdkit
 # RUN curl -fsSL -v -o ${HOME}/miniconda.sh -O  https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh  && \
 #     chmod +x ${HOME}/miniconda.sh && \
@@ -20,11 +23,11 @@ RUN apt update &&\
 #     && conda init bash 
 # RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple 
 # RUN pip install -i https://download.pytorch.org/whl/cu116 torch torchvision torchaudio
-#RUN pip install -r /tmp/build/requirements.txt \
-#   && rm -rf /tmp/build
+RUN pip install -r /tmp/build/requirements.txt \
+    && rm -rf /tmp/build
 # For Vina Docking
-#RUN pip install meeko==0.1.dev3 scipy pdb2pqr vina==1.2.2 
-#RUN pip install git+https://github.com/Valdes-Tresanco-MS/AutoDockTools_py3
+RUN pip install meeko==0.1.dev3 scipy pdb2pqr vina==1.2.2 
+RUN pip install git+https://github.com/Valdes-Tresanco-MS/AutoDockTools_py3
 # RUN conda install -c conda-forge graph-tool=2.45 rdkit=2023.03.2 \
 #     && conda clean -ya
 

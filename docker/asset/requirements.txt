@@ -13,7 +13,8 @@ imageio
 msgpack
 zuko
 torchdiffeq
-torch_geometric
-torch_scatter
 pytorch_lightning
 overrides
+tensorboard
+pyyaml
+easydict
